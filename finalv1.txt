@@ -1,6 +1,5 @@
 	program f2023;
-	(* This program computes and prints the value
- 	of an expression *)
+	(* This program computes and prints the value of an expression *)
  var
 	 (* declare variables *)
 	a1 , b2a , c, ba : integer ;
