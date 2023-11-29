@@ -5,26 +5,27 @@ class ParsingTable:
             self.parse_table[i][0] = 0
         for i in range(11):
             self.parse_table[0][i] = 0
-        self.parse_table[1][1] = 1
-        self.parse_table[2][2] = 21
-        self.parse_table[2][3] = 22
-        self.parse_table[2][8] = 23
-        self.parse_table[3][4] = 31
-        self.parse_table[3][5] = 32
-        self.parse_table[3][9] = 100
-        self.parse_table[3][10] = 101
-        self.parse_table[4][2] = 41
-        self.parse_table[4][3] = 42
-        self.parse_table[4][8] = 43
-        self.parse_table[5][4] = 102
-        self.parse_table[5][5] = 103
-        self.parse_table[5][6] = 51
-        self.parse_table[5][7] = 52
-        self.parse_table[5][9] = 104
-        self.parse_table[5][10] = 105
-        self.parse_table[6][2] = 200
-        self.parse_table[6][3] = 201
-        self.parse_table[6][8] = 202
+        self.parse_table[1][1] = 1 #S -> a=E
+    
+        self.parse_table[2][2] = 21 # E -> TQ 
+        self.parse_table[2][3] = 22 # E-> -TQ 
+        self.parse_table[2][8] = 23 # E -> ^ Lambda
+        self.parse_table[3][4] = 31 # Q -> +tq 
+        self.parse_table[3][5] = 32 # Q -> -tq 
+        self.parse_table[3][9] = 100 # q -> ^lambda
+        self.parse_table[3][10] = 101 # q -> ^lambda
+        self.parse_table[4][2] = 41 # T ->FR 
+        self.parse_table[4][3] = 42 #T -> *FR 
+        self.parse_table[4][8] = 43 # -> ^ lambda 
+        self.parse_table[5][4] = 102 #R -> *FR
+        self.parse_table[5][5] = 103 #R -> /FR 
+        self.parse_table[5][6] = 51 #R -> ^ lambda
+        self.parse_table[5][7] = 52 #R -> ^ lambda
+        self.parse_table[5][9] = 104 #R -> ^ lambda
+        self.parse_table[5][10] = 105 #R -> ^ lambda
+        self.parse_table[6][2] = 200 #F -> a
+        self.parse_table[6][3] = 201 #F -> b 
+        self.parse_table[6][8] = 202 #F->(E)
 
     def get(self, row, col):
         return self.parse_table[row][col]
