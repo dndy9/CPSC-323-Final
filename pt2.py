@@ -1,51 +1,109 @@
 class ParsingTable:
     def __init__(self):
-        self.parse_table = [[0] * 11 for _ in range(7)]
-        for i in range(7):
+        self.parse_table = [[0] * 31 for _ in range(20)]
+        for i in range(20):
             self.parse_table[i][0] = 0
-        for i in range(11):
+        for i in range(31):
             self.parse_table[0][i] = 0
-        self.parse_table[1][1] = 1 #S -> a=E
+
+
+
+#31 x axis
+#20 y axis
+
+# a b c d w f + - ( ) * / 1 2 3 4 5 6 7 8 9 $ ; program(res word) var(res word) begin(res word) end(res word) interger (res word) interger(res word) Write(res word) "value=",
+
+
+#NON TERMS P,I,PI,DL,D,TYPE,SL,S,W,STR,AS,E,Q,T,R,F,N,DIG, DIG',SIGN,LETTER
+#21 
+
+#
+#prog
+self.parse_table[1][24] = 1 #program
+
+#identifier
+self.parse_table[2][1] = 21 #LETTER a
+self.parse_table[2][2] = 22 #LETTER b
+self.parse_table[2][3] = 23 #LETTER c
+self.parse_table[2][4] = 24 #LETTER d
+self.parse_table[2][5] = 25 #LETTER w 
+self.parse_table[2][6] = 26 #LETTER f
+
+#post identifier
+self.parse_table[3][1] = 31 #LETTER a
+self.parse_table[3][2] = 32 #LETTER b
+self.parse_table[3][3] = 33 #LETTER c
+self.parse_table[3][4] = 34 #LETTER d
+self.parse_table[3][5] = 35 #LETTER w 
+self.parse_table[3][6] = 36 #LETTER f
+#check if lambda only leads to + - 1 because it leads to <identifier> which also has a-f and 0-9
+
+self.parse_table[3][7] = 37 #lambda +
+self.parse_table[3][8] = 38 #lambda -
+self.parse_table[3][11] = 311 #lambda *
+
+
+#dec-list
+self.parse_table[4][1] = 41 #LETTER a
+self.parse_table[4][2] = 42 #LETTER b
+self.parse_table[4][3] = 43 #LETTER c
+self.parse_table[4][4] = 44 #LETTER d
+self.parse_table[4][5] = 45 #LETTER w 
+self.parse_table[4][6] = 46 #LETTER f
+
+
+
+
+#        self.parse_table[1][1] = 1 #S -> a=E = 1 
     
-        self.parse_table[2][2] = 21 # E -> TQ 
-        self.parse_table[2][3] = 22 # E-> -TQ 
-        self.parse_table[2][8] = 23 # E -> ^ Lambda
-        self.parse_table[3][4] = 31 # Q -> +tq 
-        self.parse_table[3][5] = 32 # Q -> -tq 
-        self.parse_table[3][9] = 100 # q -> ^lambda
-        self.parse_table[3][10] = 101 # q -> ^lambda
-        self.parse_table[4][2] = 41 # T ->FR 
-        self.parse_table[4][3] = 42 #T -> *FR 
-        self.parse_table[4][8] = 43 # -> ^ lambda 
-        self.parse_table[5][4] = 102 #R -> *FR
-        self.parse_table[5][5] = 103 #R -> /FR 
-        self.parse_table[5][6] = 51 #R -> ^ lambda
-        self.parse_table[5][7] = 52 #R -> ^ lambda
-        self.parse_table[5][9] = 104 #R -> ^ lambda
-        self.parse_table[5][10] = 105 #R -> ^ lambda
-        self.parse_table[6][2] = 200 #F -> a
-        self.parse_table[6][3] = 201 #F -> b 
-        self.parse_table[6][8] = 202 #F->(E)
+#        self.parse_table[2][2] = 21 # E -> TQ 
+#        self.parse_table[2][3] = 22 # E-> TQ 
+#        self.parse_table[2][8] = 23 # E -> TQ
+
+
+#        self.parse_table[3][4] = 31 # Q -> +tq 
+#        self.parse_table[3][5] = 32 # Q -> -tq 
+#        self.parse_table[3][9] = 100 # q -> ^lambda
+#        self.parse_table[3][10] = 101 # q -> ^lambda
+
+
+#        self.parse_table[4][2] = 41 # T ->FR 
+#        self.parse_table[4][3] = 42 #T -> *FR 
+#        self.parse_table[4][8] = 43 # -> ^ lambda 
+
+
+#        self.parse_table[5][4] = 102 #R -> *FR
+#        self.parse_table[5][5] = 103 #R -> /FR 
+#        self.parse_table[5][6] = 51 #R -> ^ lambda
+#        self.parse_table[5][7] = 52 #R -> ^ lambda
+#        self.parse_table[5][9] = 104 #R -> ^ lambda
+#        self.parse_table[5][10] = 105 #R -> ^ lambda
+
+
+        
+#        self.parse_table[6][2] = 200 #F -> a
+ #       self.parse_table[6][3] = 201 #F -> b 
+  #      self.parse_table[6][8] = 202 #F->(E)
 
     def get(self, row, col):
         return self.parse_table[row][col]
 
-
-def convert_to_row(c):
-    if c == 'S':
-        return 1
-    elif c == 'E':
-        return 2
-    elif c == 'Q':
-        return 3
-    elif c == 'T':
-        return 4
-    elif c == 'R':
-        return 5
-    elif c == 'F':
-        return 6
-    else:
-        return 0
+#
+#def convert_to_row(c):
+#    if c == 'S':
+#        return 1
+#    elif c == 'E':
+#        return 2
+#    elif c == 'Q':
+#        return 3
+#    elif c == 'T':
+#        return 4
+#    elif c == 'R':
+#        return 5
+#    elif c == 'F':
+#        return 6
+#    else:
+#        return 0
 
 
 def convert_to_col(c):
@@ -186,6 +244,13 @@ def push_back_to_stack(st, x):
 
 def main():
     parse_table = ParsingTable()
+    #
+    #
+    #     1. read from final23.txt
+    #
+    #     2. update logic 
+    #       
+    #
     input_string = input("Enter string: ")
 
     # char to hold position
