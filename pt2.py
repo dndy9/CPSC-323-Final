@@ -1,16 +1,17 @@
 from parsing_table import table
+from read_final23 import get_final23
 column_names = ['a','b','c','d','w','f','+','-','(',')','*','/','1','2','3','4','5','6','7','8','9','$',';','program','var','begin','integer','write','value=']
 row_names = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T']
 
 
 
-print(table[4][0])
-
-
 def t_response(row,column, table):
-    return table[column_names.index(column)][row_names.index(row)]
+    print("row name: ",row)
+    print("column name: ",column)
+    return table[row_names.index(row)][column_names.index(column)]
 
-print(t_response('E','a',table))
+
+input_string = get_final23()
 
 def parse(input_tokens, table):
     stack = ['$']  # Initialize the stack with the dollar sign as the bottom marker
@@ -55,7 +56,7 @@ def parse(input_tokens, table):
 
 list_of_inputs = ['program f2023 ;','i*(i-i)$','i(i+i)$']
 
-success = parse(list_of_inputs[0], table)
+success = parse(input_string, table)
 print(success)
 #success = parse(list_of_inputs[1], table)
 #print(success)
