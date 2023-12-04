@@ -1,6 +1,6 @@
 file_path = 'finalv1.txt'
 
-with open("finalv1.txt", "r") as input_file:
+with open("finalv1.txt", "r", encoding = 'utf-8') as input_file:
     lines = input_file.readlines()
 
 modified_lines = []
@@ -16,5 +16,6 @@ for line in lines:
     if line != "":
         modified_lines.append(line)
 
-with open("final23.txt", "w") as output_file:
+with open("final23.txt", "w", encoding ='utf-8' ) as output_file:
     output_file.write("\n".join(modified_lines))
+
