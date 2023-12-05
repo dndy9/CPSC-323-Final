@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 class ParsingTable:
     def __init__(self):
         self.parse_table = [[0] * 31 for _ in range(20)]
@@ -5,6 +6,12 @@ class ParsingTable:
             self.parse_table[i][0] = 0
         for i in range(31):
             self.parse_table[0][i] = 0
+=======
+from parsing_table import table
+from read_final23 import get_final23
+column_names = ['a','b','c','d','w','f','+','-','(',')','*','/','0','1','2','3','4','5','6','7','8','9','$',';','program','var','begin','integer','write','value=']
+row_names = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T']
+>>>>>>> Stashed changes
 
 
 
