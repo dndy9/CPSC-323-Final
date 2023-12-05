@@ -494,79 +494,81 @@ def main():
     #     2. update logic 
     #       
     #
+    file_path = 'final23.txt'
 
+    with open(file_path, "r") as input_file:
+        input_string = input_file.readlines
 
-    input_string = input("Enter string: ")
+    for line in input_string:
+        # char to hold position
+        state = ''
 
-    # char to hold position
-    state = ''
+        # check to see if input is valid
+        accepted = True
 
-    # check to see if input is valid
-    accepted = True
+        # initalized list to start off on
+        st = ['$', 'S']
 
-    # initalized list to start off on
-    st = ['$', 'S']
+        # gets input
+        print("Input string:", input_string)
+        while len(st) > 0:
+            state = st[-1]
 
-    # gets input
-    print("Input string:", input_string)
-    while len(st) > 0:
-        state = st[-1]
+            # read the input and puts the next character
+            input_char = input_string[0]
 
-        # read the input and puts the next character
-        input_char = input_string[0]
+            next_char = input_string[1] if len(input_string) > 1 else ''
+            if next_char == '=':
+                input_char = '@'
 
-        next_char = input_string[1] if len(input_string) > 1 else ''
-        if next_char == '=':
-            input_char = '@'
+            # pop from stack if lambda
+            if state == '^':
+                print("Popping ^ (Lambda) from the stack.")
+                st.pop()
+                print("Current stack:", end=' ')
+                for item in st:
+                    print(item, end=' ')
+                print()
 
-        # pop from stack if lambda
-        if state == '^':
-            print("Popping ^ (Lambda) from the stack.")
-            st.pop()
-            print("Current stack:", end=' ')
-            for item in st:
-                print(item, end=' ')
-            print()
-
-        # checks everything else that isnt $ and pops, also checks input_char to see if it needs to be rejected or accepted
-        elif state in '@abcdwf+()$-*/123456789;':
-            if state == input_char:
-                if state == '@':
-                    # pop to check for @
-                    print("Popping from stack: @(a=)")
-                    st.pop()
-                    input_string = input_string[2:]
+            # checks everything else that isnt $ and pops, also checks input_char to see if it needs to be rejected or accepted
+            elif state in '@abcdwf+()$-*/123456789;':
+                if state == input_char:
+                    if state == '@':
+                        # pop to check for @
+                        print("Popping from stack: @(a=)")
+                        st.pop()
+                        input_string = input_string[2:]
+                    else:
+                        print("Popping from stack:", st[-1])
+                        st.pop()
+                        input_string = input_string[1:]
+                    print("Input:", input_string)
                 else:
-                    print("Popping from stack:", st[-1])
-                    st.pop()
-                    input_string = input_string[1:]
-                print("Input:", input_string)
-            else:
-                print("Rejected.")
-                accepted = False
-                break
+                    print("Rejected.")
+                    accepted = False
+                    break
 
-        # If state is non-terminal  then retrieve the states from the parsing table.
+            # If state is non-terminal  then retrieve the states from the parsing table.
 
-        # If state is non-term then pop and push
-        elif state in 'SETQFR':
-            row = convert_to_row(state)
-            col = convert_to_col(input_char)
-            new_state = parse_table.get(row, col)
-            print("Popping from stack:", st[-1])
-            st.pop()
-            print("Current stack:", end=' ')
-            for item in st:
-                print(item, end=' ')
-            print()
-            if not push_back_to_stack(st, new_state):
-                accepted = False
-                break
+            # If state is non-term then pop and push
+            elif state in 'SETQFR':
+                row = convert_to_row(state)
+                col = convert_to_col(input_char)
+                new_state = parse_table.get(row, col)
+                print("Popping from stack:", st[-1])
+                st.pop()
+                print("Current stack:", end=' ')
+                for item in st:
+                    print(item, end=' ')
+                print()
+                if not push_back_to_stack(st, new_state):
+                    accepted = False
+                    break
 
-    if accepted:
-        print("accepted")
-    else:
-        print("rejected")
+        if accepted:
+            print("accepted")
+        else:
+            print("rejected")
 
 
 if __name__ == '__main__':
