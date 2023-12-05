@@ -1,14 +1,15 @@
-from parsing_table import table
+from parsing_table import *
 from read_final23 import get_final23
 column_names = ['a','b','c','d','w','f','+','-','(',')','*','/','1','2','3','4','5','6','7','8','9','$',';','program','var','begin','integer','write','value=']
 row_names = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T']
-
 
 
 def t_response(row, column, table):
     try:
         row_index = row_names.index(row)
         column_index = column_names.index(column)
+        print("row index: ",row_index)
+        print("column index: ",column_index)
         return table[row_index][column_index]
     except ValueError:
         print(f"Error: Row '{row}' or Column '{column}' not found in the table.")
@@ -59,14 +60,14 @@ def parse(input_tokens, table):
                 input_index += 1
             #If there is no match, the input is not valid
             else:
-                print("Error: Mismatch between stack and input")
+                print("Error: Mismatch between stack and input. When top of stack is terminal, it must match input token.")
                 return False
         #If the top of the stack is a non-terminal, look up the next action in the parsing table
         else:
             # Use the parsing table to determine the next action
             print("Searching the parsing table for the next action")
             action = t_response(top_of_stack, current_input, table)
-            print("Action: ",action)
+            print("Action found at intersection of '" +top_of_stack +"' and '"+ current_input+ "':",action)
 
             # If the parsing table contains an error, the input is not valid
             if action is None:
@@ -78,12 +79,24 @@ def parse(input_tokens, table):
 
                 # Push the action's right-hand side onto the stack in reverse order
                 print("Pushing the action onto the stack in reverse order")
-                if action not in keywords :
+
+                keyword_bool = False
+                for keyword in keywords:
+                    if keyword in action:
+                        action = action.replace(keyword, '')
+                        for symbol in reversed(action):
+                            print("symbol:",symbol)
+                            if symbol != '':
+                                stack.append(symbol)
+                        keyword_bool = True
+                        stack.append(keyword)
+
+                if not keyword_bool:
+                    print("action:",action)
                     for symbol in reversed(action):
+                        print("symbol:",symbol)
                         if symbol != '':  # Skip empty symbols
                             stack.append(symbol)
-                else:
-                    stack.append(action)
 
     if input_index == len(input_tokens):
         print("Input successfully parsed")
@@ -92,10 +105,11 @@ def parse(input_tokens, table):
         print("Error: Not all input tokens were consumed")
         return False
 
-list_of_inputs = ['program f2023 ;','i*(i-i)$','i(i+i)$']
+
 
 success = parse(result_list, table)
 print(success)
+
 #success = parse(list_of_inputs[1], table)
 #print(success)
 #success = parse(list_of_inputs[2], table)
