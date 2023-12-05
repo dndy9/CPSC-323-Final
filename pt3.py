@@ -24,7 +24,7 @@ for i, line in enumerate(lines):
         lines[i] = lines[i].replace('“','"')
         lines[i] = lines[i].replace('”','"')
         lines[i] = lines[i].replace('( ','')
-        lines[i] = lines[i].replace(' )','')
+        lines[i] = lines[i].replace(' )',' << endl')
 
     if indent and 'begin' not in line:
         lines[i] = '\t' + lines[i]

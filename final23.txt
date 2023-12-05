@@ -5,7 +5,7 @@ begin
 a1 = 3 ;
 b2a = 4 ;
 c = 5 ;
-write ( c );
-ba = a1 * ( b2a + 2 * c) ;
-write ( “value=”, ba ) ;
+write ( c ) ;
+ba = a1 * ( b2a + 2 * c ) ;
+write ( “value=” , ba ) ;
 end.
